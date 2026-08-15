@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="robots" content="noindex">
+<title>GOH · Uma conversa sobre a sua experiência</title>
+<style>
+  :root {
+    --verde: #1f4a47;
+    --verde-claro: #2b5d59;
+    --fundo: #f6f5f1;
+    --bolha-bot: #ffffff;
+    --bolha-user: #1f4a47;
+    --texto: #2b2f2e;
+    --cinza: #8a8f8d;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--fundo);
+    color: var(--texto);
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: var(--verde);
+    color: #fff;
+    padding: 14px 20px 12px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  header .marca { font-family: Georgia, 'Times New Roman', serif; font-size: 19px; letter-spacing: 4px; }
+  header .sub { font-size: 11px; opacity: .75; margin-top: 3px; letter-spacing: .3px; }
+  #chat {
+    flex: 1;
+    overflow-y: auto;
+    padding: 18px 14px 10px;
+    max-width: 620px;
+    width: 100%;
+    margin: 0 auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .msg {
+    max-width: 85%;
+    padding: 11px 14px;
+    border-radius: 16px;
+    margin-bottom: 10px;
+    line-height: 1.45;
+    font-size: 15px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    animation: pop .25s ease;
+  }
+  @keyframes pop { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .bot {
+    background: var(--bolha-bot);
+    border: 1px solid #e4e2db;
+    border-bottom-left-radius: 4px;
+    margin-right: auto;
+  }
+  .user {
+    background: var(--bolha-user);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+    margin-left: auto;
+  }
+  .typing {
+    display: inline-flex; gap: 5px; padding: 14px 16px;
+    background: var(--bolha-bot); border: 1px solid #e4e2db;
+    border-radius: 16px; border-bottom-left-radius: 4px; margin-bottom: 10px;
+  }
+  .typing i {
+    width: 7px; height: 7px; background: #b9beba; border-radius: 50%;
+    animation: blink 1.2s infinite;
+  }
+  .typing i:nth-child(2) { animation-delay: .2s; }
+  .typing i:nth-child(3) { animation-delay: .4s; }
+  @keyframes blink { 0%, 60%, 100% { opacity: .3; } 30% { opacity: 1; } }
+  .chips { display: flex; flex-direction: column; gap: 8px; margin: 4px 0 12px; }
+  .chips button, .chips a {
+    background: #fff; border: 1.5px solid var(--verde); color: var(--verde);
+    padding: 11px 16px; border-radius: 22px; font-size: 14.5px; cursor: pointer;
+    text-align: left; transition: background .15s; text-decoration: none; display: block;
+  }
+  .chips button:active { background: var(--verde); color: #fff; }
+  #inputbar {
+    flex-shrink: 0;
+    background: #fff;
+    border-top: 1px solid #e4e2db;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  }
+  #inputbar .inner { display: flex; gap: 8px; max-width: 620px; margin: 0 auto; align-items: flex-end; }
+  #resposta {
+    flex: 1; border: 1.5px solid #d9dedc; border-radius: 18px;
+    padding: 10px 14px; font-size: 15px; font-family: inherit;
+    resize: none; max-height: 120px; outline: none; background: var(--fundo);
+  }
+  #resposta:focus { border-color: var(--verde); }
+  #enviar {
+    background: var(--verde); color: #fff; border: none;
+    width: 42px; height: 42px; border-radius: 50%; font-size: 18px;
+    cursor: pointer; flex-shrink: 0;
+  }
+  #enviar:disabled { opacity: .35; }
+  .nota { text-align: center; font-size: 10.5px; color: var(--cinza); padding: 6px 16px 0; }
+  .nota a { color: var(--cinza); }
+  #sink { display: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="marca">GOH</div>
+  <div class="sub">Uma conversa anônima — sem nome, sem e-mail, sem telefone</div>
+</header>
+
+<div id="chat" aria-live="polite"></div>
+
+<div id="inputbar">
+  <div class="inner">
+    <textarea id="resposta" rows="1" placeholder="Escreva com as suas palavras…" disabled></textarea>
+    <button id="enviar" disabled aria-label="Enviar">↑</button>
+  </div>
+  <div class="nota">Suas respostas são enviadas de forma anônima. Problemas com a página? <a href="https://forms.gle/WKbPRs3Fp3iLtCpz5">Responda por aqui</a>.</div>
+</div>
+
+<iframe id="sink" name="sink" title="envio"></iframe>
+
+<script>
+(function(){
+  var FORM_ID     = '1FAIpQLScudTNC2wXAwD_A7WCT44d_vrH01at2AGMiNFYqnL_aSMYTlA';
+  var FORM_VIEW   = 'https://docs.google.com/forms/d/e/' + FORM_ID + '/viewform';
+  var FORM_ACTION = 'https://docs.google.com/forms/d/e/' + FORM_ID + '/formResponse';
+  var ENTRY_PERFIL = 'entry.1166754998';
+
+  var PERFIS = [
+    { rotulo: 'Sou paciente há mais de 2 anos', valor: 'Sou paciente ha mais de 2 anos', ramo: 'ativo', page: '0,1' },
+    { rotulo: 'Comecei há menos de 1 ano',      valor: 'Comecei ha menos de 1 ano',      ramo: 'ativo', page: '0,1' },
+    { rotulo: 'Já fui paciente, mas não frequento mais', valor: 'Ja fui paciente, mas nao frequento mais', ramo: 'ex', page: '0,2' }
+  ];
+
+  var PERGUNTAS = {
+    ativo: [
+      { e: 'entry.131647485',  t: 'Para começar: o que fez você escolher a GOH — e o que faz você continuar?' },
+      { e: 'entry.1689565412', t: 'Se você fosse descrever a GOH para um amigo, em uma frase… o que diria?' },
+      { e: 'entry.319744291',  t: 'O que você encontra na GOH que nunca encontrou em outro lugar da área da saúde?\n\nE, com a mesma sinceridade: o que ainda sente falta?' },
+      { e: 'entry.239033518',  t: 'Quando você vê a GOH no Instagram ou no site, o que aquilo transmite para você?\n\nCombina com o que você vive na clínica?' },
+      { e: 'entry.1387714950', t: 'Última pergunta. A GOH vai para uma casa nova, com serviços novos de saúde e longevidade.\n\nNa sua opinião, o que NÃO pode se perder de jeito nenhum nessa mudança?' }
+    ],
+    ex: [
+      { e: 'entry.243154554',  t: 'Para começar: o que levou você à GOH na época — e o que foi acontecendo para você se afastar?\n\n(Sem constrangimento nenhum — essa é talvez a resposta mais valiosa de todas para nós.)' },
+      { e: 'entry.1790513906', t: 'Se você fosse descrever a GOH para um amigo, em uma frase… o que diria?' },
+      { e: 'entry.1323996538', t: 'O que você encontrou na GOH que não encontrou em outros lugares da área da saúde?\n\nE o que faltou?' },
+      { e: 'entry.711244849',  t: 'Quando você via a GOH no Instagram ou no site, o que aquilo transmitia?\n\nCombinava com o que você vivia na clínica?' },
+      { e: 'entry.724956297',  t: 'Última pergunta. A GOH está indo para uma nova casa, com uma proposta ampliada de saúde e longevidade.\n\nO que teria que ser diferente para fazer sentido você voltar?' }
+    ]
+  };
+
+  var REACOES = [
+    'Obrigado por compartilhar isso.',
+    'Anotado — isso ajuda muito.',
+    'Entendi. Vamos em frente.',
+    'Isso é exatamente o tipo de coisa que queríamos ouvir.'
+  ];
+
+  var chat = document.getElementById('chat');
+  var input = document.getElementById('resposta');
+  var btn = document.getElementById('enviar');
+  var respostas = {};
+  var perfilEscolhido = null;
+  var fila = [];
+  var idx = 0;
+  var enviado = false;
+
+  function scrollFim(){ chat.scrollTop = chat.scrollHeight; }
+
+  function bolha(texto, cls){
+    var d = document.createElement('div');
+    d.className = 'msg ' + cls;
+    d.textContent = texto;
+    chat.appendChild(d);
+    scrollFim();
+  }
+
+  function digitando(ms, cb){
+    var t = document.createElement('div');
+    t.className = 'typing';
+    t.innerHTML = '<i></i><i></i><i></i>';
+    chat.appendChild(t);
+    scrollFim();
+    setTimeout(function(){ t.remove(); cb(); }, ms);
+  }
+
+  function bot(texto, cb, ms){
+    digitando(ms || Math.min(600 + texto.length * 6, 1800), function(){
+      bolha(texto, 'bot');
+      if (cb) cb();
+    });
+  }
+
+  function liberaInput(){
+    input.disabled = false; btn.disabled = false;
+    input.focus();
+  }
+  function travaInput(){
+    input.disabled = true; btn.disabled = true;
+  }
+
+  function mostraPerfis(){
+    var box = document.createElement('div');
+    box.className = 'chips';
+    PERFIS.forEach(function(p){
+      var b = document.createElement('button');
+      b.textContent = p.rotulo;
+      b.onclick = function(){
+        if (perfilEscolhido) return;
+        perfilEscolhido = p;
+        box.remove();
+        bolha(p.rotulo, 'user');
+        fila = PERGUNTAS[p.ramo];
+        var abre = p.ramo === 'ex'
+          ? 'Que bom ter você aqui — a visão de quem já viveu a GOH e se afastou é uma das mais importantes para este projeto.'
+          : 'Que bom ter você aqui. São 5 perguntas — responda do seu jeito, no seu tempo.';
+        bot(abre, function(){ proximaPergunta(); });
+      };
+      box.appendChild(b);
+    });
+    chat.appendChild(box);
+    scrollFim();
+  }
+
+  function proximaPergunta(){
+    if (idx >= fila.length) { finaliza(); return; }
+    bot(fila[idx].t, function(){ liberaInput(); });
+  }
+
+  function responder(){
+    var v = input.value.trim();
+    if (!v || !perfilEscolhido) return;
+    bolha(v, 'user');
+    respostas[fila[idx].e] = v;
+    input.value = ''; input.style.height = 'auto';
+    travaInput();
+    idx++;
+    if (idx >= fila.length) { finaliza(); return; }
+    var r = REACOES[(idx - 1) % REACOES.length];
+    bot(r, function(){ proximaPergunta(); }, 700);
+  }
+
+  function montaUrlEnvio(){
+    var partes = [ENTRY_PERFIL + '=' + encodeURIComponent(perfilEscolhido.valor)];
+    Object.keys(respostas).forEach(function(k){
+      partes.push(k + '=' + encodeURIComponent(respostas[k]));
+    });
+    return FORM_VIEW + '?usp=pp_url&' + partes.join('&');
+  }
+
+  // Envia por POST para o Google Forms dentro de um iframe oculto:
+  // o paciente nunca sai da conversa e não precisa tocar em "Avançar"/"Enviar".
+  function enviaDireto(ok, falha){
+    var sink = document.getElementById('sink');
+    var f = document.createElement('form');
+    f.action = FORM_ACTION;
+    f.method = 'POST';
+    f.target = 'sink';
+    f.style.display = 'none';
+
+    function campo(nome, valor){
+      var i = document.createElement('input');
+      i.type = 'hidden';
+      i.name = nome;
+      i.value = valor;
+      f.appendChild(i);
+    }
+
+    campo(ENTRY_PERFIL, perfilEscolhido.valor);
+    Object.keys(respostas).forEach(function(k){ campo(k, respostas[k]); });
+    campo('fvv', '1');
+    campo('pageHistory', perfilEscolhido.page);
+    campo('draftResponse', '[]');
+    campo('submit', 'Submit');
+
+    document.body.appendChild(f);
+
+    var resolvido = false;
+    var prazo = setTimeout(function(){
+      if (resolvido) return;
+      resolvido = true;
+      falha();
+    }, 8000);
+
+    sink.onload = function(){
+      if (resolvido) return;
+      resolvido = true;
+      clearTimeout(prazo);
+      ok();
+    };
+
+    f.submit();
+  }
+
+  function mostraFallback(){
+    var box = document.createElement('div');
+    box.className = 'chips';
+    var a = document.createElement('a');
+    a.href = montaUrlEnvio();
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = 'Finalizar pelo formulário ✓';
+    a.style.textAlign = 'center';
+    a.style.background = 'var(--verde)';
+    a.style.color = '#fff';
+    box.appendChild(a);
+    chat.appendChild(box);
+    scrollFim();
+  }
+
+  function finaliza(){
+    if (enviado) return;
+    enviado = true;
+    travaInput();
+    bot('Isso era tudo. 🌿', function(){
+      digitando(900, function(){
+        enviaDireto(
+          function(){
+            bolha('Pronto — recebemos tudo. 💚\n\nObrigado por dedicar esse tempo à GOH. Cada palavra que você escreveu vai ajudar a construir o que vem por aí.', 'bot');
+            scrollFim();
+          },
+          function(){
+            bolha('Quase lá — o envio automático não completou. Toque no botão abaixo para finalizar pelo formulário: suas respostas já vão preenchidas, é só tocar em "Avançar" e depois em "Enviar".', 'bot');
+            mostraFallback();
+          }
+        );
+      });
+    }, 900);
+  }
+
+  btn.onclick = responder;
+  input.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); responder(); }
+  });
+  input.addEventListener('input', function(){
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+  });
+
+  bot('Oi! Que bom que você veio. 💚', function(){
+    bot('A GOH está se preparando para uma fase nova — uma nova casa, um novo projeto — e antes de qualquer decisão, queremos ouvir quem realmente conhece a GOH: você.', function(){
+      bot('Essa conversa é totalmente anônima: não pedimos nome, e-mail nem telefone, e não temos como saber quem respondeu. Então fique à vontade para ser completamente sincero(a) — é exatamente isso que buscamos.', function(){
+        bot('Para começar: há quanto tempo você acompanha (ou acompanhou) a GOH?', function(){
+          mostraPerfis();
+        });
+      });
+    });
+  }, 500);
+})();
+</script>
+</body>
+</html>
