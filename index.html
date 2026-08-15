@@ -106,7 +106,6 @@
   #enviar:disabled { opacity: .35; }
   .nota { text-align: center; font-size: 10.5px; color: var(--cinza); padding: 6px 16px 0; }
   .nota a { color: var(--cinza); }
-  #sink { display: none; }
 </style>
 </head>
 <body>
@@ -125,8 +124,6 @@
   </div>
   <div class="nota">Suas respostas são enviadas de forma anônima. Problemas com a página? <a href="https://forms.gle/WKbPRs3Fp3iLtCpz5">Responda por aqui</a>.</div>
 </div>
-
-<iframe id="sink" name="sink" title="envio"></iframe>
 
 <script>
 (function(){
@@ -257,48 +254,41 @@
     return FORM_VIEW + '?usp=pp_url&' + partes.join('&');
   }
 
-  // Envia por POST para o Google Forms dentro de um iframe oculto:
+  // Envia por POST para o Google Forms com fetch em modo no-cors:
   // o paciente nunca sai da conversa e não precisa tocar em "Avançar"/"Enviar".
+  // Não usamos iframe porque o Google responde com X-Frame-Options, o que impede
+  // a resposta de ser exibida e faz o evento 'load' nunca disparar — mesmo quando
+  // o envio deu certo. Com fetch, a promise resolve assim que o POST completa.
   function enviaDireto(ok, falha){
-    var sink = document.getElementById('sink');
-    var f = document.createElement('form');
-    f.action = FORM_ACTION;
-    f.method = 'POST';
-    f.target = 'sink';
-    f.style.display = 'none';
+    if (!window.fetch) { falha(); return; }
 
-    function campo(nome, valor){
-      var i = document.createElement('input');
-      i.type = 'hidden';
-      i.name = nome;
-      i.value = valor;
-      f.appendChild(i);
-    }
-
-    campo(ENTRY_PERFIL, perfilEscolhido.valor);
-    Object.keys(respostas).forEach(function(k){ campo(k, respostas[k]); });
-    campo('fvv', '1');
-    campo('pageHistory', perfilEscolhido.page);
-    campo('draftResponse', '[]');
-    campo('submit', 'Submit');
-
-    document.body.appendChild(f);
+    var dados = new URLSearchParams();
+    dados.append(ENTRY_PERFIL, perfilEscolhido.valor);
+    Object.keys(respostas).forEach(function(k){ dados.append(k, respostas[k]); });
+    dados.append('fvv', '1');
+    dados.append('pageHistory', perfilEscolhido.page);
+    dados.append('draftResponse', '[]');
 
     var resolvido = false;
     var prazo = setTimeout(function(){
       if (resolvido) return;
       resolvido = true;
       falha();
-    }, 8000);
+    }, 12000);
 
-    sink.onload = function(){
-      if (resolvido) return;
-      resolvido = true;
-      clearTimeout(prazo);
-      ok();
-    };
-
-    f.submit();
+    fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: dados })
+      .then(function(){
+        if (resolvido) return;
+        resolvido = true;
+        clearTimeout(prazo);
+        ok();
+      })
+      .catch(function(){
+        if (resolvido) return;
+        resolvido = true;
+        clearTimeout(prazo);
+        falha();
+      });
   }
 
   function mostraFallback(){
