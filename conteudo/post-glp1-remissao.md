@@ -1,118 +1,130 @@
-# Post — "Eu não sou obeso. E uso GLP-1."
+# Post — "Eu emagreci 30 kg quando GLP-1 não existia. Hoje eu uso."
 
-Formato: carrossel de feed (12 cards) + legenda longa.
-Tese central: **obesidade não tem cura, tem remissão.**
-Diferencial do post: o autor emagreceu ~30 kg há 12 anos, *antes* de existir GLP-1 — isso neutraliza a objeção "foi atalho".
+**Formato:** carrossel fotográfico de 11 cards, no mesmo modelo do post
+"Eu já tive o mesmo peso em corpos totalmente diferentes".
+
+**Gramática visual (mantida do modelo):**
+- Fotos reais, cronológicas, sem tratamento — inclusive as ruins.
+- Peso em serifada branca grande, canto variável, sem caixa nem contorno.
+- Capa: foto atual + frase-paradoxo em serifada, duas linhas, centralizada.
+- P&B nas fotos de hoje; as antigas ficam como são (celular, praia, espelho).
+- Cards de texto: fundo da foto puxado pra escuro, só a frase em serifada.
+- Legenda curta e sentenciosa. Áudio original.
+
+**Tese:** obesidade não tem cura, tem remissão — e remissão se mantém.
+**Diferencial:** ele fez os 30 kg sem GLP-1, porque não existia. Isso desarma
+o "foi atalho" antes que o comentário apareça.
+
+> Pesos entre colchetes = preencher com os números reais.
 
 ---
 
 ## Cards
 
-**1 — Capa**
-> Eu não sou obeso.
-> E uso GLP-1.
+**1 — Capa** · foto de hoje, P&B
+> Eu emagreci 30 kg
+> quando o GLP-1 não existia.
+> E hoje eu uso.
 
-_linha de apoio:_ Há 12 anos eu emagreci quase 30 kg sem remédio nenhum. É exatamente por isso que hoje eu trato.
+**2 — 100 kg** · foto da faculdade
+> `100kg`
+> 25 anos. Pré-diabético. Hipertenso.
 
-**2 — Âncora**
-> Há 12 anos eu tinha outro corpo — e outro metabolismo.
-> Pré-diabético. Hipertenso. Quase 30 kg a mais.
+**3 — 100 kg** · outra foto da mesma época
+> `100kg`
+> E o que a foto não mostra:
+> compulsão, food noise o dia inteiro,
+> hiperfagia prandial, beliscava sem parar.
 
-**3 — O que ninguém via**
-> Transtorno de compulsão alimentar.
-> Food noise das 7h às 23h.
-> Hiperfagia prandial: eu comia até acabar, não até saciar.
-> E beliscava o dia inteiro.
->
-> Isso não é falta de caráter. É doença.
+**4 — [72 kg]** · foto do ponto mais baixo
+> `[72kg]`
+> Quase 30 kg a menos.
+> Sem remédio nenhum — não existia.
 
-**4 — O contexto histórico**
-> GLP-1 não existia.
-> Emagreci no estilo de vida: comida, treino de força, sono, terapia.
-> E deu certo.
+**5 — [85 kg]** · foto da volta do peso
+> `[85kg]`
+> O corpo não assinou embaixo.
 
-**5 — A virada**
-> Deu certo.
-> E quase não durou.
+**6 — [78 kg]** · foto de outra descida
+> `[78kg]`
+> De novo.
 
-**6 — A biologia (card do gráfico)**
-> Quando você emagrece, o corpo reage:
-> ↑ grelina — a fome sobe
-> ↓ leptina — a saciedade cai
-> ↓ gasto energético — você gasta menos que antes no mesmo peso
->
-> O food noise volta **antes** do peso voltar.
+**7 — [88 kg]** · foto de outra subida
+> `[88kg]`
+> E de novo.
+> Doze anos assim.
 
-_Visual: curva peso × tempo com os dentes de serra do efeito sanfona; no fim, a linha estabiliza com o tratamento._
+**8 — Card de texto**
+> Efeito sanfona não é fraqueza.
+> É o corpo defendendo o maior peso que você já teve:
+> a fome sobe, a saciedade cai, o gasto diminui.
+> O food noise volta antes do peso.
 
-**7 — Nomear o inimigo**
-> Efeito sanfona não é recaída moral.
-> É fisiologia defendendo o maior peso que você já teve.
-
-**8 — A tese (card mais salvável)**
+**9 — Card de texto** · o card salvável
 > Obesidade não tem cura.
 > Tem remissão.
 
-**9 — Desdobramento**
-> E remissão se mantém, não se conquista uma vez.
-> Ninguém pede pro hipertenso controlado parar o remédio porque "a pressão está boa".
+**10 — [95 kg]** · foto de hoje
+> `[95kg]`
+> Mesmo peso de uma das fotos aí atrás.
+> Corpo diferente. Metabolismo diferente.
+> E em tratamento — não apesar disso, por causa disso.
 
-**10 — A resposta à pergunta do post**
-> Por que eu uso GLP-1 hoje, sem ser obeso?
-> Não é para emagrecer mais.
-> É para manter o cérebro quieto: sem food noise, sem beliscar, com saciedade voltando quando deveria.
-
-**11 — Fechamento pessoal**
-> 12 anos de remissão sustentada — e hoje uma tecnologia que eu não tive aos 30.
-> Se ela existisse naquela época, eu teria sofrido menos. Só isso.
-
-**12 — CTA**
+**11 — Fechamento** · foto de hoje ou card
+> Uso GLP-1 sem ser obeso.
+> Não pra emagrecer: já emagreci, na unha, há doze anos.
+> Uso pra manter o cérebro quieto e a remissão de pé.
+>
 > Você não fracassou na dieta.
 > A dieta é que nunca foi tratamento.
->
-> Tratar obesidade é cuidar de uma doença crônica — com plano, acompanhamento e, quando indicado, medicação.
 
 ---
 
-## Legenda
+## Legenda (curta, no tom do modelo)
 
-Eu uso GLP-1. E não, eu não sou obeso hoje.
+> Eu não cheguei aqui com GLP-1. Eu me mantenho aqui com ele.
+> Obesidade não tem cura — tem remissão. E remissão é coisa que se sustenta.
 
-Há 12 anos eu era. Pré-diabético, hipertenso, quase 30 kg acima. Tinha compulsão alimentar, food noise o dia inteiro, comia até o prato acabar e não até a fome passar, e beliscava entre todas as refeições. Na época nem nome direito isso tinha — era só "falta de força de vontade".
+## Legenda (versão longa, se quiser puxar salvamento)
 
-GLP-1 não existia. Emagreci quase 30 kg na raça: comida de verdade, treino de força, sono, terapia. Funcionou.
+Eu emagreci quase 30 kg há doze anos, quando GLP-1 não existia. Comida, treino
+de força, sono, terapia. Funcionou.
 
-O que ninguém me contou é o que vem depois. Quando você emagrece, o corpo não assina embaixo: a grelina sobe, a saciedade cai, o gasto energético diminui. O organismo passa a defender o maior peso que você já teve. É por isso que o efeito sanfona é regra e não exceção — e não tem nada a ver com caráter.
+O que ninguém me contou é o que vem depois. Quando você emagrece, a fome sobe,
+a saciedade cai e o gasto energético diminui. O corpo passa a defender o maior
+peso que você já teve. Foram doze anos de sanfona segurando na unha uma coisa
+que hoje eu sei o nome: remissão.
 
-Foram anos segurando na unha uma coisa que hoje eu sei o nome: remissão.
+Hoje eu tenho uma ferramenta que eu não tinha aos 25. Ela não me emagrece — meu
+peso está onde precisa estar. Ela mantém o cérebro quieto: sem food noise, sem
+beliscar, com saciedade chegando na hora certa.
 
-Porque obesidade não tem cura. Tem remissão. Como hipertensão, como diabetes. A doença não vai embora porque o número da balança mudou — ela fica lá, esperando a guarda baixar.
+Não é atalho. É tratamento de doença crônica, igual a qualquer outra.
 
-Hoje eu tenho uma ferramenta que eu não tinha aos 30 anos. O GLP-1 não me faz emagrecer mais — meu peso está onde precisa estar. Ele mantém o cérebro quieto. Sem food noise, sem beliscar, com saciedade chegando na hora certa. Ele sustenta a remissão que eu construí sozinho há 12 anos.
-
-Não é atalho. É tratamento de doença crônica.
-
-E se você está aí se culpando porque "perdeu e ganhou tudo de novo": você não fracassou na dieta. A dieta é que nunca foi tratamento.
+E se você está se culpando porque perdeu e ganhou tudo de novo: você não
+fracassou na dieta. A dieta é que nunca foi tratamento.
 
 —
-Medicação é individualizada, exige prescrição e acompanhamento médico, e não substitui alimentação adequada, treino de força e sono. Este post é a minha história, não uma recomendação para o seu caso.
-
-#obesidade #remissao #tratamentodaobesidade #foodnoise #compulsaoalimentar #efeitosanfona #medicinadoestilodevida
+Medicação exige prescrição e acompanhamento, é individualizada e não substitui
+alimentação, treino de força e sono. Esta é a minha história, não uma
+recomendação para o seu caso.
 
 ---
 
-## Hooks alternativos (teste de capa)
+## Capas alternativas (teste)
 
-- "Eu emagreci 30 kg antes do GLP-1 existir. Hoje eu uso. Te explico por quê."
-- "Não sou obeso. Uso GLP-1. As duas coisas são verdade — e é isso que ninguém entende."
-- "Passei 12 anos em remissão na força de vontade. Não precisava ter sido tão difícil."
+- "Eu já fui obeso. Hoje não sou. E continuo tratando."
+- "Emagreci 30 kg sem GLP-1. É por isso que hoje eu uso."
+- "Não uso GLP-1 pra emagrecer. Uso pra não voltar."
 
 ---
 
 ## Checklist antes de publicar
 
-- [ ] Não citar nome comercial nem molécula da medicação (publicidade de medicamento por médico).
-- [ ] Sem foto de antes/depois do corpo — usar o gráfico do efeito sanfona no lugar (CFM 2.336/2023).
-- [ ] Sem promessa de resultado, número de quilos prometido ou "garantido".
-- [ ] Disclaimer de prescrição/acompanhamento mantido na legenda.
-- [ ] Termo correto: **hiperfagia prandial** (comer além da saciedade na refeição), não "hipergamia".
+- [ ] Sem nome comercial nem molécula.
+- [ ] A ordem importa: a medicação entra **depois** da remissão construída.
+      Nenhum card pode sugerir que o corpo de hoje é resultado da caneta.
+- [ ] Sem promessa de resultado, número de quilos prometido ou prazo.
+- [ ] Disclaimer de prescrição e acompanhamento na legenda.
+- [ ] Termo correto: hiperfagia prandial (não "hipergamia").
+- [ ] Fotos da sanfona com peso real — o card 7 é o que dá credibilidade ao 9.
